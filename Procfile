@@ -1,0 +1,1 @@
+web: gunicorn hackway.wsgi --log-file -
