@@ -22,10 +22,10 @@ from .utils import (
     get_number_emoji)
 
 #online
-page_access_token='EAAB9qLtZBAGoBALIZAUXOsrwZAQZAdnApZADJZCnwtkRdrLFr8ZBnQiNM7KhNGocTHA15qnKwzgbplmzWMPgR5wbW7lrxd5Qr6NXdbebdOUfSBBBlRxoYIupXKw5vAeqV4k1W4Dkcr5QMZB4q3fi3IobFEbrJaZAoUadFVsmzptRPYZBSDHBg0aPmA'
+#page_access_token='EAAB9qLtZBAGoBALIZAUXOsrwZAQZAdnApZADJZCnwtkRdrLFr8ZBnQiNM7KhNGocTHA15qnKwzgbplmzWMPgR5wbW7lrxd5Qr6NXdbebdOUfSBBBlRxoYIupXKw5vAeqV4k1W4Dkcr5QMZB4q3fi3IobFEbrJaZAoUadFVsmzptRPYZBSDHBg0aPmA'
 
 #local
-#page_access_token='EAACQBKzfE5YBAKdfQbkJOh585wDa5yPYsTqWy0wQbTWa6bpZCYyeqeaiMqYYBPhZCsiVVZCH08PA1OPPeUc88EUBjq3QulXw1vnDoxTDmL0ZBrPZBoomkPhZC9jCzKCXuUZBZCgck3RLTKvXw5D4iuCr5fNMziWfw7ZCL2hehN9ssyQZDZD'
+page_access_token='EAACQBKzfE5YBAKdfQbkJOh585wDa5yPYsTqWy0wQbTWa6bpZCYyeqeaiMqYYBPhZCsiVVZCH08PA1OPPeUc88EUBjq3QulXw1vnDoxTDmL0ZBrPZBoomkPhZC9jCzKCXuUZBZCgck3RLTKvXw5D4iuCr5fNMziWfw7ZCL2hehN9ssyQZDZD'
 messenger_bot=Bot(page_access_token)
 
 base_url='https://hackway.surge.sh'
@@ -285,6 +285,10 @@ def handle_referral(messenger_id,referral):
         current_bot_user.save()
 
         send_question(current_bot_user.messenger_id, state={'text_message': ''})
+
+    elif 'segment_id' in ref:
+        segment_id=json.loads(ref)['segment_id']
+        send_code_segment_quiz(messenger_id=messenger_id, segment_id=segment_id)
 
 
 def handle_options_payload(recipient_id):

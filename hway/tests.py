@@ -9,7 +9,7 @@ import os, django
 
 
 
-josewails='1528075240606741'
+josewails='1307518072599510'
 addie='1519445798105050'
 facebook_id='1091795360951693',
 question_id=21
@@ -111,16 +111,12 @@ payload={
     'category_id': 1
 }
 
+ref_data={
+    'segment_id': 1
+}
 
-
-
-
-
-quiz_data={"challenger_id": josewails , "questions_right": 4, "questions_done_ids": "[0,1,2,3]", "language_code": "30", "difficulty_level": "simple"}
-ref_data={}
-ref_data['quiz_data']=quiz_data
 #test_button_postback(recipient_id=recipient_id, payload='how_to_challenge')
 #test_quick_reply(recipient_id=recipient_id, payload='quiz_solve_more')
-referral_test(recipient_id=addie, ref=json.dumps(ref_data))
+referral_test(recipient_id=josewails, ref=json.dumps(ref_data))
 #text_message_test(recipient_id=recipient_id, message='hi')
 
