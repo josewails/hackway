@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import raven
 import dj_database_url
+from django.utils.log import DEFAULT_LOGGING
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -36,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'django_filters',
     'rest_framework',
     'corsheaders',
@@ -44,7 +47,8 @@ INSTALLED_APPS = [
     'boto',
     'ckeditor',
     'ckeditor_uploader',
-    'nested_admin'
+    'nested_admin',
+    'raven.contrib.django.raven_compat'
 
 ]
 
@@ -130,6 +134,53 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
 
+RAVEN_CONFIG = {
+    'dsn': 'https://97007fe1804c4e9e8de774ac298ff693:0bdcd2ed0ac84310ac03d367a7e9b25f@sentry.io/301518',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
+}
+
+
+import logging.config
+LOGGING_CONFIG = None
+logging.config.dictConfig({
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            # exact format is not important, this is the minimum information
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        },
+        'django.server': DEFAULT_LOGGING['formatters']['django.server']
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
+        },
+        # Add Handler for Sentry for `warning` and above
+        'sentry': {
+            'level': 'WARNING',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+        },
+        'django.server': DEFAULT_LOGGING['handlers']['django.server']
+    },
+    'loggers': {
+    # root logger
+        '': {
+            'level': 'WARNING',
+            'handlers': ['console', 'sentry'],
+        },
+        'hackway': {
+            'level': 'ERROR',
+            'handlers': ['console', 'sentry'],
+            'propagate': False
+        },
+        'django.server': DEFAULT_LOGGING['loggers']['django.server']
+    },
+})
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -147,6 +198,8 @@ CKEDITOR_CONFIGS = {
         'width': 1000,
     },
 }
+
+SITE_ID = 1
 
 CORS_ORIGIN_ALLOW_ALL=True
 

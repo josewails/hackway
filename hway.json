@@ -1,0 +1,631 @@
+[
+{
+    "model": "hway.facebookuser",
+    "pk": 1,
+    "fields": {
+        "facebook_id": "1091795360951693",
+        "name": "Josewails",
+        "email": "Joseritch45@gmail.com",
+        "profile_picture_url": null
+    }
+},
+{
+    "model": "hway.facebookuser",
+    "pk": 2,
+    "fields": {
+        "facebook_id": "672",
+        "name": "Joseph",
+        "email": "('joseritch45@gmail.com',)",
+        "profile_picture_url": "https://hackway.herokuapp.com"
+    }
+},
+{
+    "model": "hway.facebookuser",
+    "pk": 3,
+    "fields": {
+        "facebook_id": "456",
+        "name": "jose",
+        "email": "('joseritch45@gmail.com',)",
+        "profile_picture_url": "http://localhost:8000/facebook_users/create"
+    }
+},
+{
+    "model": "hway.botuser",
+    "pk": 1,
+    "fields": {
+        "facebook_user": 1,
+        "messenger_id": "1528075240606741",
+        "profile_details": "{\"last_name\": \"Wagura\", \"gender\": \"male\", \"profile_pic\": \"https://scontent.xx.fbcdn.net/v/t31.0-1/18620745_1018895178241712_4268700238720152377_o.jpg?oh=ebdceba23337b445a0a52d9d7e31a86c&oe=5A6C1C96\", \"id\": \"1528075240606741\", \"locale\": \"en_US\", \"first_name\": \"Joseph\", \"timezone\": 1}",
+        "json_store": "{\"difficulty_level\": \"simple\", \"language_code\": \"30\", \"category_id\": 1}",
+        "current_questions_ids": "[5, 6, 7]",
+        "questions_done": 1,
+        "questions_right": 0,
+        "possible_total": 116,
+        "quiz_total": 0,
+        "scores": "[2, 1, 1, 1, 0, 0, 2, 2, 3, 3, 3, 3, 2, 0, 3, 3, 2, 1, 3, 2, 9, 1, 2, 0, 3, 1, 2, 4, 0, 14, 3]",
+        "quiz_challenged": false,
+        "quiz_data": "{\"difficulty_level\": \"simple\", \"questions_right\": 4, \"questions_done_ids\": \"[0,1,2,3]\", \"language_code\": \"30\", \"challenger_id\": \"1519445798105050\"}",
+        "question_challenged": false,
+        "generated_quiz_challenged": false,
+        "generating_quiz": false,
+        "generated_quiz_results": "{}",
+        "question_data": "{}",
+        "solving_course_quiz": true,
+        "course_data": "{\"data\": []}"
+    }
+},
+{
+    "model": "hway.botuser",
+    "pk": 2,
+    "fields": {
+        "facebook_user": 1,
+        "messenger_id": "1519445798105050",
+        "profile_details": "{\"first_name\": \"Jairus\", \"gender\": \"male\", \"profile_pic\": \"https://scontent.xx.fbcdn.net/v/t1.0-1/18813660_1924198014492744_1218085890907421812_n.jpg?oh=aacd33f81ea41d00fa4bd5adb22c6fec&oe=5A9ABC9E\", \"timezone\": 1, \"locale\": \"en_US\", \"last_name\": \"Addie Kafufs\", \"id\": \"1519445798105050\"}",
+        "json_store": "{\"category_id\": 1, \"difficulty_level\": \"simple\", \"language_code\": \"30\"}",
+        "current_questions_ids": "[0,1,2,3]",
+        "questions_done": 1,
+        "questions_right": 0,
+        "possible_total": 59,
+        "quiz_total": 0,
+        "scores": "[13, 4, 4, 3, 2, 4, 2, 1, 4, 4, 4, 13]",
+        "quiz_challenged": true,
+        "quiz_data": "{\"challenger_id\": \"1528075240606741\", \"questions_done_ids\": \"[0,1,2,3]\", \"questions_right\": 4, \"difficulty_level\": \"simple\", \"language_code\": \"30\"}",
+        "question_challenged": false,
+        "generated_quiz_challenged": false,
+        "generating_quiz": false,
+        "generated_quiz_results": "{\"total_score\": 0, \"average_score\": 0}",
+        "question_data": "{\"challenger_score\": 100.0, \"question_id\": 6, \"challenger_id\": \"1528075240606741\"}",
+        "solving_course_quiz": false,
+        "course_data": "{\"data\": []}"
+    }
+},
+{
+    "model": "hway.botuser",
+    "pk": 3,
+    "fields": {
+        "facebook_user": null,
+        "messenger_id": "1307518072599510",
+        "profile_details": "{\"timezone\": 1, \"profile_pic\": \"https://scontent.xx.fbcdn.net/v/t31.0-1/18620745_1018895178241712_4268700238720152377_o.jpg?oh=df22932efa61d8aa3dcc85db50072e93&oe=5A93A996\", \"locale\": \"en_US\", \"last_name\": \"Wagura\", \"gender\": \"male\", \"id\": \"1307518072599510\", \"first_name\": \"Joseph\"}",
+        "json_store": "{\"language_code\": \"30\", \"difficulty_level\": \"difficult\", \"category_id\": 1}",
+        "current_questions_ids": "[5, 6, 7]",
+        "questions_done": 1,
+        "questions_right": 0,
+        "possible_total": 32,
+        "quiz_total": 0,
+        "scores": "[25, 0]",
+        "quiz_challenged": false,
+        "quiz_data": null,
+        "question_challenged": false,
+        "generated_quiz_challenged": false,
+        "generating_quiz": false,
+        "generated_quiz_results": "{\"average_score\": 0, \"total_score\": 0}",
+        "question_data": null,
+        "solving_course_quiz": true,
+        "course_data": "{\"data\": []}"
+    }
+},
+{
+    "model": "hway.course",
+    "pk": 1,
+    "fields": {
+        "name": "Python",
+        "description": "This is a course on the introduction to the Python Programming Language.",
+        "students": [
+            1,
+            2
+        ]
+    }
+},
+{
+    "model": "hway.coursesegment",
+    "pk": 1,
+    "fields": {
+        "course": 1,
+        "title": "Python Variables",
+        "intro": null,
+        "body": "<h1 style=\"margin-left:40px; text-align:justify\">&nbsp;</h1>\r\n\r\n<h3>Introduction</h3>\r\n\r\n<p><strong>Variables</strong>&nbsp;are an important programming concept to master. They are essentially symbols that stand in for a value you&rsquo;re using in a program.</p>\r\n\r\n<p>This tutorial will cover some variable basics and how to best use them within the Python 3 programs you create.</p>\r\n\r\n<h2>Understanding Variables</h2>\r\n\r\n<p>In technical terms, a variable is assigning a storage location to a value that is tied to a symbolic name or identifier. The variable name is used to reference that stored value within a computer program.</p>\r\n\r\n<p>You can think of a variable as a label that has a name on it, which you tie onto a value:</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Let&rsquo;s say we have an integer,&nbsp;<code>103204934813</code>, and we want to store it in a variable rather than continuously retype the long number over and over again. Instead, let&rsquo;s use something that&rsquo;s easy to remember like the variable&nbsp;<code>my_int</code>:</p>\r\n\r\n<pre>\r\n<code>my_int = 103204934813\r\n</code></pre>\r\n\r\n<p>If we think of it like a label that is tied to the value, it will look something like this:</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>The label has the variable name&nbsp;<code>my_int</code>&nbsp;written on it, and is tied to the integer value&nbsp;<code>103204934813</code>.</p>\r\n\r\n<p>The phrase&nbsp;<code>my_int = 103204934813</code>&nbsp;is an&nbsp;<strong>assignment statement</strong>, which consists of a few parts:</p>\r\n\r\n<ul>\r\n\t<li>the variable name (<code>my_int</code>)</li>\r\n\t<li>the&nbsp;<strong>assignment operator</strong>, also known as the equal sign (<code>=</code>)</li>\r\n\t<li>the value that is being tied to the variable name (<code>103204934813</code>)</li>\r\n</ul>\r\n\r\n<p>Together, those three parts make up the statement that sets the variable&nbsp;<code>my_int</code>&nbsp;equal to the value of the integer&nbsp;<code>103204934813</code>.</p>\r\n\r\n<p>As soon as we set a variable equal to a value, we&nbsp;<strong>initialize</strong>&nbsp;or create that variable. Once we have done that, we are set to use the variable instead of the value. In Python, variables do not need explicit declaration prior to use like some programming languages; you can start using the variable right away.</p>\r\n\r\n<p>As soon as we set&nbsp;<code>my_int</code>&nbsp;equal to the value of&nbsp;<code>103204934813</code>, we can use&nbsp;<code>my_int</code>&nbsp;in the place of the integer, so let&rsquo;s print it out:</p>\r\n\r\n<pre>\r\n<code>print(my_int)\r\n</code></pre>\r\n\r\n<pre>\r\n\r\n&nbsp;</pre>\r\n\r\n<p><code>Output</code></p>\r\n\r\n<p><code>103204934813 </code></p>\r\n\r\n<p>Using variables, we can quickly and easily do&nbsp;<a href=\"https://www.digitalocean.com/community/tutorials/how-to-do-math-in-python-3-with-operators\">math</a>. With&nbsp;<code>my_int = 1040</code>, let&rsquo;s subtract the integer value 813:</p>\r\n\r\n<pre>\r\n<code>print(my_int - 813)\r\n</code></pre>\r\n\r\n<pre>\r\n\r\n&nbsp;</pre>\r\n\r\n<p><code>Output</code></p>\r\n\r\n<p><code>103204934000 </code></p>\r\n\r\n<p>In this example, Python does the math for us, subtracting 813 from the variable&nbsp;<code>my_int</code>&nbsp;to return the sum&nbsp;<code>103204934000</code>.</p>\r\n\r\n<p>Speaking of math, variables can be set equal to the result of a math equation. Let&rsquo;s add two numbers together and store the value of the sum into the variable&nbsp;<code>x</code>:</p>\r\n\r\n<pre>\r\n<code>x = 76 + 145\r\n</code></pre>\r\n\r\n<p>The above example may look like something you&rsquo;re already familiar with: algebra. In algebra, letters and other symbols are used to represent numbers and quantities within formulas and equations, just like how variables are symbolic names that represent the value of a data type. For correct Python syntax, you&rsquo;ll need to make sure that your variable is on the left side of any equations.</p>\r\n\r\n<p>Let&rsquo;s go ahead and print&nbsp;<code>x</code>:</p>\r\n\r\n<pre>\r\n<code>print(x)\r\n</code></pre>\r\n\r\n<pre>\r\n\r\n&nbsp;</pre>\r\n\r\n<p><code>Output</code></p>\r\n\r\n<p><code>221 </code></p>\r\n\r\n<p>Python returned the value&nbsp;<code>221</code>&nbsp;because the variable&nbsp;<code>x</code>&nbsp;was set equal to the sum of&nbsp;<code>76</code>&nbsp;and&nbsp;<code>145</code>.</p>\r\n\r\n<p>Variables can represent any data type, not just integers:</p>\r\n\r\n<pre>\r\n<code>my_string = &#39;Hello, World!&#39;\r\nmy_flt = 45.06\r\nmy_bool = 5 &gt; 9 #A Boolean value will return either True or False\r\nmy_list = [&#39;item_1&#39;, &#39;item_2&#39;, &#39;item_3&#39;, &#39;item_4&#39;]\r\nmy_tuple = (&#39;one&#39;, &#39;two&#39;, &#39;three&#39;)\r\nmy_dict = {&#39;letter&#39;: &#39;g&#39;, &#39;number&#39;: &#39;seven&#39;, &#39;symbol&#39;: &#39;&amp;&#39;}\r\n</code></pre>\r\n\r\n<p>If you print any of the above variables, Python will return what that variable is equivalent to. For example, let&rsquo;s work with the assignment statement for the&nbsp;<a href=\"https://www.digitalocean.com/community/tutorials/understanding-lists-in-python-3\">list data type</a>&nbsp;above:</p>\r\n\r\n<pre>\r\n<code>my_list = [&#39;item_1&#39;, &#39;item_2&#39;, &#39;item_3&#39;, &#39;item_4&#39;]\r\nprint(my_list)\r\n</code></pre>\r\n\r\n<pre>\r\n\r\n&nbsp;</pre>\r\n\r\n<p><code>Output</code></p>\r\n\r\n<p><code>[&#39;item_1&#39;, &#39;item_2&#39;, &#39;item_3&#39;, &#39;item_4&#39;] </code></p>\r\n\r\n<p>We passed the list value of&nbsp;<code>[&#39;item_1&#39;, &#39;item_2&#39;, &#39;item_3&#39;, &#39;item_4&#39;]</code>&nbsp;to the variable&nbsp;<code>my_list</code>, and then used the&nbsp;<code>print()</code>&nbsp;function to print out that value by calling&nbsp;<code>my_list</code>.</p>\r\n\r\n<p>Variables work by carving out a little area of memory within your computer which accepts specified values that are then associated with that space.</p>\r\n\r\n<h2>Naming Variables: Rules and Style</h2>\r\n\r\n<p>The naming of variables is quite flexible, but there are some rules you need to keep in mind:</p>\r\n\r\n<ul>\r\n\t<li>Variable names must only be one word (as in no spaces)</li>\r\n\t<li>Variable names must be made up of only letters, numbers, and underscore (<code>_</code>)</li>\r\n\t<li>Variable names cannot begin with a number</li>\r\n</ul>\r\n\r\n<p>Following the rules above, let&rsquo;s look at both valid and invalid variable names:</p>\r\n\r\n<table>\r\n\t<thead>\r\n\t\t<tr>\r\n\t\t\t<th>Valid</th>\r\n\t\t\t<th>Invalid</th>\r\n\t\t\t<th>Why Invalid</th>\r\n\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td>my_int</td>\r\n\t\t\t<td>my-int</td>\r\n\t\t\t<td>Hyphens are not permitted</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>int4</td>\r\n\t\t\t<td>4int</td>\r\n\t\t\t<td>Cannot begin with a number</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>MY_INT</td>\r\n\t\t\t<td>$MY_INT</td>\r\n\t\t\t<td>Cannot use symbols other than&nbsp;<code>_</code></td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>another_int</td>\r\n\t\t\t<td>another int</td>\r\n\t\t\t<td>Cannot be more than one word</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n\r\n<p>Something else to keep in mind when naming variables, is that they are case-sensitive, meaning that&nbsp;<code>my_int</code>,&nbsp;<code>MY_INT</code>,&nbsp;<code>My_Int</code>, and&nbsp;<code>mY_iNt</code>&nbsp;are all completely different variables. You should avoid using similar variable names within a program to ensure that both you and your current and future collaborators can keep your variables straight.</p>\r\n\r\n<p>Finally, some notes about style. Conventionally speaking, when naming variables it is customary to begin them with a lower-case letter and to use underscores when separating words. Beginning with an upper-case letter is not invalid, and some people may prefer camelCase or mixed upper- and lower-case letters when writing their variables, but these are less conventional choices.</p>\r\n\r\n<table>\r\n\t<thead>\r\n\t\t<tr>\r\n\t\t\t<th>Conventional Style</th>\r\n\t\t\t<th>Unconventional Style</th>\r\n\t\t\t<th>Why Unconventional</th>\r\n\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t<tr>\r\n\t\t\t<td>my_int</td>\r\n\t\t\t<td>myInt</td>\r\n\t\t\t<td>camelCase not conventional</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>int4</td>\r\n\t\t\t<td>Int4</td>\r\n\t\t\t<td>Upper-case first letter not conventional</td>\r\n\t\t</tr>\r\n\t\t<tr>\r\n\t\t\t<td>my_first_string</td>\r\n\t\t\t<td>myFirstString</td>\r\n\t\t\t<td>camelCase not conventional</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n\r\n<p>The most important style choice you can make is to be consistent. If you begin working on an existing project that has been using camelCase for its variable names, then it is best to continue using the existing style.</p>\r\n\r\n<p><a href=\"https://www.python.org/dev/peps/pep-0008/\">PEP 8</a>&nbsp;is the official Python code style guide and it addresses many of the stylistic questions you may have about Python. In general, readability and consistency are favored over other stylistic concerns.</p>\r\n\r\n<h2>Reassigning Variables</h2>\r\n\r\n<p>As the word&nbsp;<strong>variable</strong>&nbsp;implies, Python variables can be readily changed. This means that you can connect a different value with a previously assigned variable very easily through simple reassignment.</p>\r\n\r\n<p>Being able to reassign is useful because throughout the course of a program, you may need to accept user-generated values into already initialized variables, or may have to change the assignment to something you previously defined.</p>\r\n\r\n<p>Knowing that you can readily and easily reassign a variable can also be useful in situations where you may be working on a large program that was begun by someone else and you are not clear yet on what has already been defined.</p>\r\n\r\n<p>Let&rsquo;s assign&nbsp;<code>x</code>&nbsp;first as an integer, and then reassign it as a&nbsp;<a href=\"https://www.digitalocean.com/community/tutorial_series/working-with-strings-in-python-3\">string</a>:</p>\r\n\r\n<pre>\r\n<code>#Assign x to be an integer\r\nx = 76\r\nprint(x)\r\n\r\n#Reassign x to be a string\r\nx = &quot;Sammy&quot;\r\nprint(x)\r\n</code></pre>\r\n\r\n<pre>\r\n\r\n&nbsp;</pre>\r\n\r\n<p><code>Output</code></p>\r\n\r\n<p><code>76 Sammy </code></p>\r\n\r\n<p>The example above shows that we can first assign the variable&nbsp;<code>x</code>&nbsp;and assign it with the value of an integer, and then reassign the variable&nbsp;<code>x</code>&nbsp;assigning it this time with the value of a string.</p>\r\n\r\n<p>If we rewrote the program this way:</p>\r\n\r\n<pre>\r\n<code>x = 76\r\nx = &quot;Sammy&quot;\r\nprint(x)\r\n</code></pre>\r\n\r\n<p>We would only receive the second assigned value as the output since that was the most recent assignment:</p>\r\n\r\n<pre>\r\n\r\n&nbsp;</pre>\r\n\r\n<p><code>Output</code></p>\r\n\r\n<p><code>Sammy </code></p>\r\n\r\n<p>Reassigning variables can be useful in some cases, but you will want to be aware of the readability of your code and work to make your program as clear as possible.</p>\r\n\r\n<h2>Multiple Assignment</h2>\r\n\r\n<p>With Python, you can assign one single value to several variables at the same time. This lets you initialize several variables at once, which you can reassign later in the program yourself, or through user input.</p>\r\n\r\n<p>Through multiple assignment, you can set the variables&nbsp;<code>x</code>,&nbsp;<code>y</code>, and&nbsp;<code>z</code>&nbsp;to the value of the integer&nbsp;<code>0</code>:</p>\r\n\r\n<pre>\r\n<code>x = y = z = 0\r\nprint(x)\r\nprint(y)\r\nprint(z)\r\n</code></pre>\r\n\r\n<pre>\r\n\r\n&nbsp;</pre>\r\n\r\n<p><code>Output</code></p>\r\n\r\n<p><code>0 0 0 </code></p>\r\n\r\n<p>In this example, all three of the variables (<code>x</code>,&nbsp;<code>y</code>, and&nbsp;<code>z</code>) are assigned to the same memory location. They are each equal to the value of 0.</p>\r\n\r\n<p>Python also allows you to assign several values to several variables within the same line. Each of these values can be of a different data type:</p>\r\n\r\n<pre>\r\n<code>j, k, l = &quot;shark&quot;, 2.05, 15\r\nprint(j)\r\nprint(k)\r\nprint(l)\r\n</code></pre>\r\n\r\n<pre>\r\n\r\n&nbsp;</pre>\r\n\r\n<p><code>Output</code></p>\r\n\r\n<p><code>shark 2.05 15 </code></p>\r\n\r\n<p>In the example above, the variable&nbsp;<code>j</code>&nbsp;was assigned to the string&nbsp;<code>&quot;shark&quot;</code>, the variable&nbsp;<code>k</code>&nbsp;was assigned to the float&nbsp;<code>2.05</code>, and the variable&nbsp;<code>l</code>&nbsp;was assigned to the integer&nbsp;<code>15</code>.</p>\r\n\r\n<p>This approach to assigning multiple variables to multiple values in one line can keep your lines of code down, but make sure you are not compromising readability for fewer lines of code.</p>\r\n\r\n<h2>Global and Local Variables</h2>\r\n\r\n<p>When using variables within a program, it is important to keep&nbsp;<strong>variable scope</strong>&nbsp;in mind. A variable&rsquo;s scope refers to the particular places it is accessible within the code of a given program. This is to say that not all variables are accessible from all parts of a given program &mdash; some variables will be global and some will be local.</p>\r\n\r\n<p><strong>Global variables</strong>&nbsp;exist outside of&nbsp;<a href=\"https://www.digitalocean.com/community/tutorials/how-to-define-functions-in-python-3\">functions</a>.&nbsp;<strong>Local variables</strong>&nbsp;exist within functions.</p>\r\n\r\n<p>Let&rsquo;s take a look at global and local variables in action:</p>\r\n\r\n<pre>\r\n<code>#Create a global variable, outside of a function\r\nglb_var = &quot;global&quot;\r\n\r\n#Define a function\r\ndef var_function():\r\n    lcl_var = &quot;local&quot; #Create a local variable, inside function\r\n    print(lcl_var)\r\n\r\n#Call function to print local variable\r\nvar_function()\r\n\r\n#Print global variable outside function\r\nprint(glb_var)\r\n</code></pre>\r\n\r\n<pre>\r\n\r\n&nbsp;</pre>\r\n\r\n<p><code>Output</code></p>\r\n\r\n<p><code>local global </code></p>\r\n\r\n<p>The above program assigns the global variable&nbsp;<code>glb_var</code>&nbsp;outside of any function, then defines the function&nbsp;<code>var_function()</code>. Inside of the function a local variable called&nbsp;<code>lcl_var</code>&nbsp;is assigned and then printed out. The program ends by calling the&nbsp;<code>var_function()</code>&nbsp;and then printing the&nbsp;<code>glb_var</code>.</p>\r\n\r\n<p>Because&nbsp;<code>glb_var</code>&nbsp;is a global variable, we can refer to it in&nbsp;<code>var_function()</code>. Let&rsquo;s modify the small program above to do that:</p>\r\n\r\n<pre>\r\n<code>glb_var = &quot;global&quot;\r\n\r\ndef var_function():\r\n    lcl_var = &quot;local&quot;\r\n    print(lcl_var)\r\n    print(glb_var) #Print glb_var within function\r\n\r\nvar_function()\r\nprint(glb_var)\r\n</code></pre>\r\n\r\n<pre>\r\n\r\n&nbsp;</pre>\r\n\r\n<p><code>Output</code></p>\r\n\r\n<p><code>local global global </code></p>\r\n\r\n<p>We now have the global variable&nbsp;<code>glb_var</code>&nbsp;printed out twice, because it is printed both by the function and outside of the function.</p>\r\n\r\n<p>What if we try to call the local variable outside of the function?</p>\r\n\r\n<pre>\r\n<code>glb_var = &quot;global&quot;\r\n\r\ndef var_function():\r\n    lcl_var = &quot;local&quot;\r\n    print(lcl_var)\r\n\r\nprint(lcl_var)\r\n</code></pre>\r\n\r\n<pre>\r\n\r\n&nbsp;</pre>\r\n\r\n<p><code>Output</code></p>\r\n\r\n<p><code>NameError: name &#39;lcl_var&#39; is not defined </code></p>\r\n\r\n<p>We cannot use a local variable outside of the function it is assigned in. If we try to do so, we&rsquo;ll receive a&nbsp;<code>NameError</code>&nbsp;in return.</p>\r\n\r\n<p>Let&rsquo;s look at another example where we use the same variable name for a global variable and a local variable:</p>\r\n\r\n<pre>\r\n<code>num1 = 5 #Global variable\r\n\r\ndef my_function():\r\n    num1 = 10 #Use the same variable name num1\r\n    num2 = 7 #Assign local variable\r\n\r\n    print(num1) #Print local variable num1\r\n    print(num2) #Print local variable num2\r\n\r\n#Call my_function()\r\nmy_function()\r\n\r\n#Print global variable num1\r\nprint(num1)\r\n</code></pre>\r\n\r\n<pre>\r\n\r\n&nbsp;</pre>\r\n\r\n<p><code>Output</code></p>\r\n\r\n<p><code>10 7 5 </code></p>\r\n\r\n<p>Because the local variable of&nbsp;<code>num1</code>&nbsp;is assigned locally within a function, when we call that function we see&nbsp;<code>num1</code>&nbsp;as equal to the local value of&nbsp;<code>10</code>. When we print out the global value of&nbsp;<code>num1</code>&nbsp;after calling&nbsp;<code>my_function()</code>, we see that the global variable&nbsp;<code>num1</code>&nbsp;is still equal to the value of&nbsp;<code>5</code>.</p>\r\n\r\n<p>It is possible to assign global variables within a function by using Python&rsquo;s&nbsp;<code>global</code>&nbsp;statement:</p>\r\n\r\n<pre>\r\n<code>def new_shark():\r\n    #Assign variable as global\r\n    global shark\r\n    shark = &quot;Sammy&quot;\r\n\r\n#Call new_shark() function\r\nnew_shark()\r\n\r\n#Print global variable shark\r\nprint(shark)\r\n</code></pre>\r\n\r\n<p>Even though the variable&nbsp;<code>shark</code>&nbsp;was assigned locally within the&nbsp;<code>new_shark()</code>&nbsp;function, it is accessible outside of the function because of the&nbsp;<code>global</code>&nbsp;statement used before the assignment of the variable within the function. Due to that&nbsp;<code>global</code>&nbsp;statement, when we call&nbsp;<code>print(shark)</code>&nbsp;outside of the function we don&rsquo;t receive an error. Though you&nbsp;<em>can</em>&nbsp;assign a global variable within a function, you likely will not need to do this often, and should err on the side of readable code.</p>\r\n\r\n<p>Something else to keep in mind is that if you reference a variable within a function, without also assigning it a value, that variable is implicitly global. In order to have a local variable, you must assign a value to it within the body of the function.</p>\r\n\r\n<p>When working with variables, it is important to decide whether it is more appropriate to use a global or local variable. Usually it is best to keep variables local, but when you are using the same variable throughout several functions, you may want to initialize a global variable. If you are working with the variable only within one function or one&nbsp;<a href=\"https://www.digitalocean.com/community/tutorials/how-to-construct-classes-and-define-objects-in-python-3\">class</a>, you&rsquo;ll probably want to use a local variable instead.</p>\r\n\r\n<h2>Conclusion</h2>\r\n\r\n<p>This tutorial went through some of the common use cases of variables within Python 3. Variables are an important building block of programming, serving as symbols that stand in for the value of a&nbsp;<a href=\"https://www.digitalocean.com/community/tutorials/understanding-data-types-in-python-3\">data type</a>&nbsp;you are using in a program.</p>"
+    }
+},
+{
+    "model": "hway.codingquestion",
+    "pk": 3,
+    "fields": {
+        "course_segment": null,
+        "author": null,
+        "title": "Division of Numbers",
+        "difficulty_level": "difficult",
+        "question": "You are given two numbers. Divide them and display the answer",
+        "sample_input": "[\"6 2\"]",
+        "sample_output": "[\"3\"]",
+        "solution_language": null,
+        "solution": "nums=[int(a) for a in input().split()]\nans=nums[0]/nums[1]\nprint(int(ans))",
+        "input": "[\"6 2\", \"22 2\", \"15 3\"]"
+    }
+},
+{
+    "model": "hway.codingquestion",
+    "pk": 6,
+    "fields": {
+        "course_segment": null,
+        "author": null,
+        "title": "Print numbers in range",
+        "difficulty_level": "simple",
+        "question": "Given a numbers, print the range of numbers from 0 to this number",
+        "sample_input": "[\"2\"]",
+        "sample_output": "[\"0 1\"]",
+        "solution_language": null,
+        "solution": "nums=[int(a) for a in input().split()]\nans=nums[0]/nums[1]\nprint(int(ans))",
+        "input": "[\"2\", \"5\", \"10\"]"
+    }
+},
+{
+    "model": "hway.codingquestion",
+    "pk": 21,
+    "fields": {
+        "course_segment": null,
+        "author": null,
+        "title": "Even or Odd",
+        "difficulty_level": "intermediate",
+        "question": "print even if number is divisible by two and odd otherwise",
+        "sample_input": "[\"2\"]",
+        "sample_output": "[\"even\"]",
+        "solution_language": null,
+        "solution": "n=int(input())if(n%2==0):    print('even')else:    print('odd')",
+        "input": "[\"2\", \"5\", \"10\"]"
+    }
+},
+{
+    "model": "hway.codingquestion",
+    "pk": 22,
+    "fields": {
+        "course_segment": null,
+        "author": 1,
+        "title": "Numbers less than 10",
+        "difficulty_level": "difficult",
+        "question": "Given a sequence numbers, print out the numbers that are less than 10 separated by spaces",
+        "sample_input": "[\"6 20 10 5\"]",
+        "sample_output": "[\"6 5\"]",
+        "solution_language": "30",
+        "solution": "num_list=[int(l)  for l in input().split()]\nfinal_res=[]\nfor l in num_list:\n    if l<10:\n        final_res.append(str(l))\n\nprint(' '.join(final_res))",
+        "input": "[\"6 20 10 5\", \"10 2 78 1000 56\", \"1000 50 5 6\"]"
+    }
+},
+{
+    "model": "hway.codingresult",
+    "pk": 4,
+    "fields": {
+        "coder_facebook_id": "67",
+        "question_solved_id": 5,
+        "last_testcase_passed_index": 3,
+        "coder_source_code": null,
+        "error": null,
+        "scores": "[]",
+        "possible_total": 0
+    }
+},
+{
+    "model": "hway.codingresult",
+    "pk": 5,
+    "fields": {
+        "coder_facebook_id": "67",
+        "question_solved_id": 6,
+        "last_testcase_passed_index": 0,
+        "coder_source_code": null,
+        "error": null,
+        "scores": "[]",
+        "possible_total": 0
+    }
+},
+{
+    "model": "hway.codingresult",
+    "pk": 6,
+    "fields": {
+        "coder_facebook_id": "67",
+        "question_solved_id": 7,
+        "last_testcase_passed_index": 3,
+        "coder_source_code": "print(5)",
+        "error": null,
+        "scores": "[]",
+        "possible_total": 0
+    }
+},
+{
+    "model": "hway.codingresult",
+    "pk": 7,
+    "fields": {
+        "coder_facebook_id": "1091795360951693",
+        "question_solved_id": 21,
+        "last_testcase_passed_index": 1,
+        "coder_source_code": "n=int(input())if(n%2==0):    print('even')else:    print('odd')",
+        "error": null,
+        "scores": "[]",
+        "possible_total": 0
+    }
+},
+{
+    "model": "hway.codingresult",
+    "pk": 8,
+    "fields": {
+        "coder_facebook_id": "1091795360951693",
+        "question_solved_id": 3,
+        "last_testcase_passed_index": 1,
+        "coder_source_code": "print(3)",
+        "error": "Found: 3Expected: 11",
+        "scores": "[3, 9, 0, 0, 3, 3, 9, 3, 3]",
+        "possible_total": 81
+    }
+},
+{
+    "model": "hway.programmingcategory",
+    "pk": 1,
+    "fields": {
+        "name": "General",
+        "published": false
+    }
+},
+{
+    "model": "hway.programminglanguage",
+    "pk": 1,
+    "fields": {
+        "category": 1,
+        "code": "30",
+        "name": "Python3",
+        "logo": "programming_languages_logos/python3.png",
+        "published": true
+    }
+},
+{
+    "model": "hway.programminglanguage",
+    "pk": 2,
+    "fields": {
+        "category": 1,
+        "code": "3",
+        "name": "Java",
+        "logo": "programming_languages_logos/java-runtime-environment-logo.png",
+        "published": false
+    }
+},
+{
+    "model": "hway.programmingquestion",
+    "pk": 1,
+    "fields": {
+        "course_segment": null,
+        "author": 1,
+        "language": 1,
+        "question": "What is the command  for printing on screen in python?",
+        "difficulty_level": "simple",
+        "explanation": "programming questions",
+        "image": ""
+    }
+},
+{
+    "model": "hway.programmingquestion",
+    "pk": 2,
+    "fields": {
+        "course_segment": null,
+        "author": 1,
+        "language": 1,
+        "question": "How do you check equality in python",
+        "difficulty_level": "simple",
+        "explanation": "programming_question",
+        "image": ""
+    }
+},
+{
+    "model": "hway.programmingquestion",
+    "pk": 3,
+    "fields": {
+        "course_segment": null,
+        "author": 1,
+        "language": 1,
+        "question": "What's the build in python function for sorting lists?",
+        "difficulty_level": "simple",
+        "explanation": "Hello",
+        "image": ""
+    }
+},
+{
+    "model": "hway.programmingquestion",
+    "pk": 4,
+    "fields": {
+        "course_segment": null,
+        "author": 1,
+        "language": 1,
+        "question": "how to you add an element to a python list?",
+        "difficulty_level": "simple",
+        "explanation": "Append is used to add an element to the end of a python list",
+        "image": "programming_questions_images/Screen_Shot_2017-11-08_at_19.22.54.png"
+    }
+},
+{
+    "model": "hway.programmingquestion",
+    "pk": 5,
+    "fields": {
+        "course_segment": 1,
+        "author": 1,
+        "language": 1,
+        "question": "Which one of the following can not be a variable Name",
+        "difficulty_level": "simple",
+        "explanation": "in is a keyword in python.",
+        "image": ""
+    }
+},
+{
+    "model": "hway.programmingquestion",
+    "pk": 6,
+    "fields": {
+        "course_segment": 1,
+        "author": 1,
+        "language": 1,
+        "question": "Which one of the following is not a valid Python Variable Name",
+        "difficulty_level": "intermediate",
+        "explanation": "Variable names can not start with an integer.",
+        "image": ""
+    }
+},
+{
+    "model": "hway.programmingquestion",
+    "pk": 7,
+    "fields": {
+        "course_segment": 1,
+        "author": 1,
+        "language": 1,
+        "question": "What is the output of the following piece of code?\r\n\r\nx=10\r\ny=x=15\r\nprint(y,x)",
+        "difficulty_level": "difficult",
+        "explanation": "",
+        "image": ""
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 1,
+    "fields": {
+        "related_question": 1,
+        "answer": "print",
+        "state": "1"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 2,
+    "fields": {
+        "related_question": 1,
+        "answer": "printf",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 3,
+    "fields": {
+        "related_question": 1,
+        "answer": "show",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 4,
+    "fields": {
+        "related_question": 1,
+        "answer": "write",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 5,
+    "fields": {
+        "related_question": 2,
+        "answer": "==",
+        "state": "1"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 6,
+    "fields": {
+        "related_question": 2,
+        "answer": "=",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 7,
+    "fields": {
+        "related_question": 2,
+        "answer": "===",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 8,
+    "fields": {
+        "related_question": 2,
+        "answer": "eq",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 9,
+    "fields": {
+        "related_question": 3,
+        "answer": "sort",
+        "state": "1"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 10,
+    "fields": {
+        "related_question": 3,
+        "answer": "order",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 11,
+    "fields": {
+        "related_question": 3,
+        "answer": "organise",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 12,
+    "fields": {
+        "related_question": 3,
+        "answer": "queue",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 13,
+    "fields": {
+        "related_question": 4,
+        "answer": "append",
+        "state": "1"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 14,
+    "fields": {
+        "related_question": 4,
+        "answer": "top",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 15,
+    "fields": {
+        "related_question": 4,
+        "answer": "increase",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 16,
+    "fields": {
+        "related_question": 4,
+        "answer": "add",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 17,
+    "fields": {
+        "related_question": 5,
+        "answer": "in",
+        "state": "1"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 18,
+    "fields": {
+        "related_question": 5,
+        "answer": "on",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 19,
+    "fields": {
+        "related_question": 5,
+        "answer": "at",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 20,
+    "fields": {
+        "related_question": 5,
+        "answer": "__init__",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 21,
+    "fields": {
+        "related_question": 6,
+        "answer": "1st",
+        "state": "1"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 22,
+    "fields": {
+        "related_question": 6,
+        "answer": "one",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 23,
+    "fields": {
+        "related_question": 6,
+        "answer": "two",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 24,
+    "fields": {
+        "related_question": 6,
+        "answer": "me",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 25,
+    "fields": {
+        "related_question": 7,
+        "answer": "10 10",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 26,
+    "fields": {
+        "related_question": 7,
+        "answer": "15 15",
+        "state": "1"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 27,
+    "fields": {
+        "related_question": 7,
+        "answer": "10 15",
+        "state": "2"
+    }
+},
+{
+    "model": "hway.programmingquestionanswer",
+    "pk": 28,
+    "fields": {
+        "related_question": 7,
+        "answer": "15 10",
+        "state": "2"
+    }
+}
+]

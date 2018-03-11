@@ -28,8 +28,7 @@ class FacebookUser(models.Model):
     name=models.CharField(max_length=100)
     email=models.EmailField(null=True)
     profile_picture_url=models.URLField(null=True, blank=True)
-    private_api_key=models.CharField(max_length=100, null=True)
-    public_api_key=models.CharField(max_length=100, null=True)
+    private_api_key = models.CharField(max_length=10000, null=True)
 
     def __str__(self):
         return self.name
@@ -132,7 +131,9 @@ class ProgrammingQuestion(models.Model):
     image=models.ImageField(null=True, blank=True, upload_to='programming_questions_images')
 
     def __str__(self):
-        return (self.language.name+ " - "+ self.difficulty_level)
+        if self.language  and self.difficulty_level:
+            return (self.language.name + " - " + self.difficulty_level)
+
 
 class ProgrammingQuestionAnswer(models.Model):
     related_question=models.ForeignKey(ProgrammingQuestion, related_name='answers')

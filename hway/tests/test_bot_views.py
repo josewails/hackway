@@ -1,21 +1,16 @@
+from django.test import TestCase, Client
 from django.test import TestCase
-
-from django.test import TestCase
-import requests
 import json
-import urllib.parse
+from pymessenger.bot import Bot
+messenger_bot = Bot()
 
-import os, django
-
-
-
-josewails='1307518072599510'
+josewails='1528075240606741'
 addie='1519445798105050'
 facebook_id='1091795360951693',
 question_id=21
-webhook = 'http://localhost:8000/webhook'
+webhook_url = 'http://localhost:8000/webhook'
 
-def text_message_test(recipient_id, message):
+def text_message(recipient_id, message):
     test_data = {
         'entry': [
             {
@@ -33,11 +28,10 @@ def text_message_test(recipient_id, message):
         ]
     }
 
-    re = requests.post(url=webhook, json=test_data)
-    print(re)
+    return test_data
 
 
-def referral_test(recipient_id,ref):
+def referral(recipient_id,ref):
     test_data = {
         'entry': [
             {
@@ -55,11 +49,10 @@ def referral_test(recipient_id,ref):
         ]
     }
 
-    res=requests.post(url=webhook, json=test_data)
-    print(res)
+    return test_data
 
 
-def test_button_postback(recipient_id, payload):
+def postback(recipient_id, payload):
     test_data={
         'entry':[
             {
@@ -77,10 +70,9 @@ def test_button_postback(recipient_id, payload):
         ]
     }
 
-    re=requests.post(url=webhook, json=test_data)
-    print(re)
+    return test_data
 
-def test_quick_reply(recipient_id, payload):
+def quick_reply(recipient_id, payload):
     test_data={
         'entry':[
             {
@@ -100,23 +92,21 @@ def test_quick_reply(recipient_id, payload):
         ]
     }
 
-    re=requests.post(url=webhook, json=test_data)
-    print(re)
+    return test_data
 
-json_data={
-   'urun_id' : 4
-}
 
-payload={
-    'category_id': 1
-}
+class TestWebhook(TestCase):
 
-ref_data={
-    'segment_id': 1
-}
+    def setUp(self):
+        self.test_data = text_message(recipient_id=josewails, message='How are you nigga? ')
 
-#test_button_postback(recipient_id=recipient_id, payload='how_to_challenge')
-#test_quick_reply(recipient_id=recipient_id, payload='quiz_solve_more')
-referral_test(recipient_id=josewails, ref=json.dumps(ref_data))
-#text_message_test(recipient_id=recipient_id, message='hi')
+
+    def test_webhook(self):
+
+        client = Client()
+        response = client.post('/webhook', data=json.dumps(self.test_data), content_type='application/json')
+        self.assertEqual(response.status_code,200)
+
+
+
 

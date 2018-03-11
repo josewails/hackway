@@ -63,11 +63,11 @@ class ProgrammingQuestionAnswerSerializer(serializers.ModelSerializer):
 
 
 class ProgrammingQuestionSerializer(serializers.ModelSerializer):
-    answers = ProgrammingQuestionAnswerSerializer(many=True)
+    answers = ProgrammingQuestionAnswerSerializer(many=True, read_only=True)
 
     class Meta:
         model=ProgrammingQuestion
-        fields=( 'id', 'question', 'difficulty_level', 'answers')
+        fields=( 'id','question', 'difficulty_level', 'answers')
 
 
 

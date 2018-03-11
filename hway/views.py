@@ -32,32 +32,48 @@ from .serializers import (
     )
 from rest_framework.views import APIView
 from rest_framework.response import Response
+import json, requests,logging
 
-import json, requests
 
 languages={
     'python': 30,
     'java': 3,
     'javascript': 20
 }
-
+logger = logging.getLogger(__name__)
 
 class FaceBookUserCreateAPIView(APIView):
 
+    """
+    View to create a new facebook user
+    """
+
     def post(self,request, format=None):
-        name=request.POST.get('name', None)
-        facebook_id=request.POST.get('facebook_id', None)
-        email=request.POST.get('email',None)
-        profile_picture_url=request.POST.get('profile_picture_url', None)
+
+        """
+
+        :param request: The received request
+        :param format: None
+            -> Extracts data from the request and tries to create a new facebook user
+
+        :return: success if the facebook user is created successfully
+        """
+
+        name = request.POST.get('name', None)
+        facebook_id = request.POST.get('facebook_id', None)
+        email = request.POST.get('email',None)
+        profile_picture_url = request.POST.get('profile_picture_url', None)
+        private_api_key = request.POST.get('private_api_key', None)
+
 
         if name and facebook_id:
-
             try:
                 facebook_user = FacebookUser.objects.create(
                     name=name,
                     facebook_id=facebook_id,
                     email=email,
-                    profile_picture_url=profile_picture_url
+                    profile_picture_url=profile_picture_url,
+                    private_api_key = private_api_key
                 )
                 facebook_user.save()
                 data = {
@@ -73,9 +89,11 @@ class FaceBookUserCreateAPIView(APIView):
                     }
 
                     return Response(data)
+
                 current_facebook_user.email = email,
                 current_facebook_user.name = name
                 current_facebook_user.profile_picture_url = profile_picture_url
+                current_facebook_user.private_api_key = private_api_key
                 current_facebook_user.save()
 
                 data = {
@@ -91,29 +109,46 @@ class FaceBookUserCreateAPIView(APIView):
 
 
 class FacebookUserListAPIView(ListAPIView):
+    """View to return all facebook users"""
+
     serializer_class = FacebookUserSerializer
     queryset =  FacebookUser.objects.all()
 
 class FacebookUserRetrieveAPIView(RetrieveAPIView):
+    """View to retrieve a give facebook user"""
+
     serializer_class = FacebookUserSerializer
     queryset = FacebookUser.objects.all()
     lookup_field = 'facebook_id'
 
 class FacebookUserUpdateAPIView(UpdateAPIView):
+    """View to update a given facebook user"""
+
     serializer_class = FacebookUserSerializer
     queryset = FacebookUser.objects.all()
     lookup_field = 'facebook_id'
 
 class FacebookUserDeleteAPIView(DestroyAPIView):
+    """View to delete a given facebook user"""
+
     serializer_class = FacebookUserSerializer
     queryset = FacebookUser.objects.all()
     lookup_field = 'facebook_id'
 
 
 class CodingQuestionCreate(APIView):
+    """View to create a new coding Question"""
+
     serializer_class = CodingQuestionCreateSerializer
 
     def post(self,request,format=None):
+        """
+
+        :param request: The post request received by API
+        :param format: None
+        :return: success if the coding question is created successfully and false otherwise
+        """
+
         difficulty_level_choices=['simple', 'intermediate', 'difficult']
         language_choices=['5', '30']
 
@@ -121,10 +156,12 @@ class CodingQuestionCreate(APIView):
             api_key = request.POST['api_key']
         except:
             api_key = None
+
+
         if api_key:
             try:
                 current_facebook_user=FacebookUser.objects.get(private_api_key=api_key)
-            except:
+            except KeyError:
                 data = {
                     'error': 'That api key is invalid'
                 }
@@ -175,7 +212,6 @@ class CodingQuestionCreate(APIView):
 
             return Response(data)
 
-
         try:
             sample_input=request.POST['sample_input']
         except:
@@ -217,11 +253,6 @@ class CodingQuestionCreate(APIView):
             return Response(data)
 
         try:
-            solution=request.POST['solution']
-        except:
-            solution=None
-
-        try:
             solution_language=request.POST['solution_language']
         except:
             solution_language=None
@@ -257,6 +288,12 @@ class CodingQuestionCreate(APIView):
             }
 
             return Response(data)
+
+        try:
+            solution = request.POST['solution']
+        except:
+            solution = None
+
 
         if solution:
             solution_data = {
@@ -297,6 +334,8 @@ class CodingQuestionCreate(APIView):
             input=input
         )
 
+
+
         new_question.save()
         data={
             'success': 'Your question was saved successfully'
@@ -306,10 +345,18 @@ class CodingQuestionCreate(APIView):
 
 
 class CodingQuestionListAPIView(ListAPIView):
+    """
+    Returns a list of all CodingQuestions
+    """
     serializer_class = CodingQuestionSerializer
     queryset =  CodingQuestion.objects.all()
 
 class CodingQuestionDifficultyList(ListAPIView):
+
+    """
+    Returns a list of all coding question with a given difficulty level
+    """
+
     serializer_class = CodingQuestionSerializer
 
     def get_queryset(self):
@@ -317,28 +364,49 @@ class CodingQuestionDifficultyList(ListAPIView):
         return CodingQuestion.objects.filter(difficulty_level=difficulty_level)
 
 class CodingQuestionRetrieveAPIView(RetrieveAPIView):
+
+    """
+    Returns the details of a specific CodingQuestion
+    """
     serializer_class=CodingQuestionSerializer
     queryset = CodingQuestion.objects.all()
     lookup_field =  'id'
 
 class CodingQuestionUpdateAPIView(UpdateAPIView):
+    """
+    Updates the details of a given Coding Question
+    """
     serializer_class = CodingQuestionCreateSerializer
     queryset = FacebookUser.objects.all()
     lookup_field = 'id'
 
 
 class FacebookUserCodingResultList(ListAPIView):
-    serializer_class=CodingResultSerializer
+
+    """
+    Returns a list of coding results for a given facebook user
+    """
+
+    serializer_class = CodingResultSerializer
 
     def get_queryset(self):
         facebook_id=self.kwargs['facebook_id']
         return CodingResult.objects.filter(coder_facebook_id=facebook_id)
 
-class ProgrammingQuestionsList(ListAPIView):
+
+
+class ProgrammingLanguagesList(ListAPIView):
+    """
+    Returns a list of all ProgrammingQuestions
+    """
     serializer_class = ProgrammingLanguageSerializer
     queryset = ProgrammingLanguage.objects.all()
 
 class GetIndividualRanking(APIView):
+
+    """
+    Gets the ranking of a specific user using their facebook_id and messenger_id
+    """
 
     def post(self, request, format=None):
 

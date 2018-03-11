@@ -1,4 +1,4 @@
-from .models import CodingQuestion, FacebookUser, CodingResult, BotUser, CourseSegment
+from .models import CodingQuestion,CodingResult, BotUser
 
 import json, requests
 import os
@@ -21,8 +21,8 @@ def validate_code(source, question_id, language_used, facebook_id):
 
         solution = current_question.solution
         test_cases = current_question.input
-        solution_language=int(current_question.solution_language)
-        possible_total=len(json.loads(test_cases))*score
+        solution_language = int(current_question.solution_language)
+        possible_total = len(json.loads(test_cases))*score
 
         solution_data = {
             'api_key': 'hackerrank|394048-2076|cbdd81cef0663eb85cd43e24355f42b1efa2e2a8',
@@ -44,29 +44,26 @@ def validate_code(source, question_id, language_used, facebook_id):
         user_output = requests.post(url, data=user_data).json()
         solution_output = requests.post(url, data=solution_data).json()
 
-        print(user_output)
-        print(solution_output)
 
         try:
             user_messages = user_output['result']['message']
         except:
-            user_messages=None
+            user_messages = None
         try:
             user_stderr = user_output['result']['stderr']
         except:
-            user_stderr=None
+            user_stderr = None
 
         try:
             user_stdout = user_output['result']['stdout']
         except:
-            user_stdout=None
+            user_stdout = None
 
         try:
             solution_stdout = solution_output['result']['stdout']
         except:
-            solution_stdout=None
+            solution_stdout = None
 
-        print(solution_stdout)
 
         if user_stdout == None:
             compile_message = user_output['result']['compilemessage']
@@ -115,18 +112,18 @@ def validate_code(source, question_id, language_used, facebook_id):
 
 def create_score(facebook_id, question_id,testcase_index, source_code, error=None, score=0, possible_total=0):
     try:
-        current_result=CodingResult.objects.get(coder_facebook_id=facebook_id, question_solved_id=question_id)
-        current_result.last_testcase_passed_index=testcase_index
-        current_result.coder_source_code=source_code
-        current_result.error=error
+        current_result = CodingResult.objects.get(coder_facebook_id=facebook_id, question_solved_id=question_id)
+        current_result.last_testcase_passed_index = testcase_index
+        current_result.coder_source_code = source_code
+        current_result.error = error
         scores=json.loads(current_result.scores)
         scores.append(score)
-        current_result.scores=json.dumps(scores)
-        current_result.possible_total=current_result.possible_total+possible_total
+        current_result.scores = json.dumps(scores)
+        current_result.possible_total = current_result.possible_total+possible_total
         current_result.save()
     except:
         scores=[score]
-        current_result=CodingResult(
+        current_result = CodingResult(
             coder_facebook_id=facebook_id,
             question_solved_id=question_id,
             last_testcase_passed_index=testcase_index,
@@ -151,21 +148,39 @@ def get_score(level):
 
 
 def get_individual_score(facebook_id, messenger_id):
+    """
+
+    :param facebook_id: the facebook id of the user
+    :param messenger_id: the messenger id of the user
+    :return:
+          a dict object containing the following data of the specific user:
+          1. Their average score in the quizzes
+          2.Their average score in the programming challenges
+          3.Their overall score
+    """
+
+    # Get the bot_user associated with the given messenger id
     current_bot_user = BotUser.objects.get(messenger_id=messenger_id)
 
-    if current_bot_user.possible_total>0:
+    # Get their score in the quizzes
+    # The score of the quizes is saved within the BotUser Model
+    if current_bot_user.possible_total > 0:
         quiz_score = (sum(json.loads(current_bot_user.scores)) / current_bot_user.possible_total) * 100
         quiz_score = round(quiz_score, 2)
     else:
         quiz_score=0
 
+    # Get their results for the programming questions. They are identified using the unique facebook id
     current_results = CodingResult.objects.filter(coder_facebook_id=facebook_id)
 
     all_scores = []
     possible_total = 0
+
+    # Calculate their average score in the quizzes
     for current_result in current_results:
         all_scores = all_scores + json.loads(current_result.scores)
         possible_total = possible_total + current_result.possible_total
+
 
     if possible_total >0:
         challenge_score = (sum(all_scores) / possible_total) * 100
@@ -173,6 +188,7 @@ def get_individual_score(facebook_id, messenger_id):
     else:
         challenge_score=0
 
+    # Calculate their overall average score
     overall_score = ((sum(json.loads(current_bot_user.scores)) + sum(all_scores)) / (
     current_bot_user.possible_total + possible_total)) * 100
     overall_score = round(overall_score, 2)
@@ -185,11 +201,13 @@ def get_individual_score(facebook_id, messenger_id):
 
 
 def generate_api_key(length):
-    random_byte=os.urandom(length)
-    api_key=hexlify(random_byte).decode()
+    random_byte = os.urandom(length)
+    api_key = hexlify(random_byte).decode()
     return api_key
 
+
 def get_number_emoji(number):
+
     number = str(number)
     res = ''
     for l in number:
@@ -200,9 +218,6 @@ def get_number_emoji(number):
 
 #validates code coming from the coding ground
 def validate_ground_code(source, language_used, testcases):
-
-
-    dummy_test_cases=['1']
 
     user_data = {
         'api_key': 'hackerrank|394048-2076|cbdd81cef0663eb85cd43e24355f42b1efa2e2a8',
@@ -216,28 +231,26 @@ def validate_ground_code(source, language_used, testcases):
 
     user_output = requests.post(url, data=user_data).json()
 
-    print(user_output)
-
     try:
         user_messages = user_output['result']['message']
     except:
-        user_messages=None
+        user_messages = None
     try:
         user_stderr = user_output['result']['stderr']
     except:
-        user_stderr=None
+        user_stderr = None
 
     try:
         user_stdout = user_output['result']['stdout']
     except:
-        user_stdout=None
+        user_stdout = None
 
 
     if user_stdout == None:
         try:
             compile_message = user_output['result']['compilemessage']
         except:
-            compile_message=None
+            compile_message = None
         return {
             'success': False,
             'compile_message': compile_message
@@ -255,8 +268,93 @@ def validate_ground_code(source, language_used, testcases):
                 'message': user_messages[0],
                 'error': user_stderr[0]
             }
+
+
+def share_with_template(elements):
+
+    btn = {
+        "type": "element_share",
+        "share_contents": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": elements
+                }
+            }
+        }
+    }
+
+    return btn
+
+
+def text_quick_reply(title, payload):
+    """
+     ->Generate a quick reply with the title as title and payload as payload
+
+    :param title:
+    :param payload:
+    :return:
+    """
+    quick_reply = {
+        "content_type": "text",
+        "title": title,
+        "payload": payload
+    }
+    return quick_reply
         
-    
+
+def element(title, image_url, subtitle, buttons):
+    element = {
+        'title': title,
+        'image_url': image_url,
+        'subtitle': subtitle,
+        'buttons': buttons
+    }
+
+    return element
+
+
+
+def plain_element(title, subtitle=None, image_url=None,default_action=None,buttons=None):
+
+    element = {
+        'title': title,
+        'image_url': image_url,
+        'subtitle': subtitle,
+        'default_action': default_action,
+        'buttons': buttons,
+    }
+
+    return element
+
+
+def share_button():
+
+    button = {
+        'type': 'element_share'
+    }
+    return button
+
+def postback_button(title, payload):
+
+    button={
+        'type': 'postback',
+        'title': title,
+        'payload': payload
+    }
+
+    return button
+
+def web_button(title, url):
+
+    button={
+        'type': 'web_url',
+        'title': title,
+        'url': url
+    }
+
+    return button
     
 
 
