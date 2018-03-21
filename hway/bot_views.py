@@ -26,8 +26,10 @@ from .utils import (
     plain_element,
     postback_button,
     share_button,
-    web_button
+    web_button,
+    get_questions_data
 )
+
 
 # online
 # page_access_token='EAAB9qLtZBAGoBALIZAUXOsrwZAQZAdnApZADJZCnwtkRdrLFr8ZBn
@@ -119,7 +121,7 @@ def webhook(request):
 
 def handle_post_back(recipient_id, post_back, get_started_referral=None):
     payload = post_back['payload']
-
+    logger.info(payload)
     if payload == 'get_started':
         handle_get_started(recipient_id=recipient_id)
 
@@ -129,6 +131,7 @@ def handle_post_back(recipient_id, post_back, get_started_referral=None):
 
     elif payload == 'options':
         handle_options_payload(recipient_id=recipient_id)
+
     elif payload == 'programming_questions':
         handle_programming_questions_payload(recipient_id=recipient_id)
 
@@ -158,7 +161,6 @@ def handle_quick_reply(recipient_id, quick_reply_message):
         handle_programming_multiple_answer_payload(recipient_id=recipient_id)
 
     elif 'language_code' in payload:
-        payload = json.loads(payload)
         handle_language_code_postback(recipient_id=recipient_id, payload=payload)
 
     elif 'category_id' in payload:
@@ -206,7 +208,6 @@ def handle_how_to_challenge_payload(messenger_id):
         payload='programming_questions'
     )
 
-    messenger_bot.send_action(action='typing_on', recipient_id=messenger_id)
     messenger_bot.send_button_message(recipient_id=messenger_id, text=message, buttons=[btn1, btn2])
 
 
@@ -216,12 +217,20 @@ def unhung(recipient_id):
 
 def handle_generate_quiz_payload(messenger_id):
 
+    # generate
     current_bot_user = BotUser.objects.get(messenger_id=messenger_id)
+
+    # set generating quiz results to zero
     current_bot_user.generating_quiz = True
-    quiz_results = json.loads(current_bot_user.generated_quiz_results)
-    quiz_results['average_score'] = 0
-    quiz_results['total_score'] = 0
+
+    #
+    quiz_results ={
+        'total_score' : 0,
+        'average_score': 0
+    }
     current_bot_user.generated_quiz_results = json.dumps(quiz_results)
+
+    #save the model changes
     current_bot_user.save()
 
     # go through the normal loop of sending categories e.t.c
@@ -375,9 +384,13 @@ def send_post_question_replies(messenger_id):
 
 
 def handle_category_id_payload(recipient_id, payload):
+    # get the current bot user
     current_bot_user = BotUser.objects.get(messenger_id=recipient_id)
+
+    # the extract the category id
     category_id = payload['category_id']
 
+    # append the category id to the bot user details
     json_data = json.loads(current_bot_user.json_store)
     json_data['category_id'] = category_id
     current_bot_user.json_store = json.dumps(json_data)
@@ -584,6 +597,8 @@ def handle_programming_questions_payload(recipient_id):
 
 
 def handle_language_code_postback(recipient_id, payload):
+
+    #get the current bot user
     current_bot_user = BotUser.objects.get(messenger_id=recipient_id)
     payload = json.loads(payload)
     language_code = payload['language_code']
@@ -960,12 +975,22 @@ def send_code_results(request):
 
 
 def handle_get_started(recipient_id):
-    try:
+
+    """
+
+    :param recipient_id:
+    :return:
+    """
+
+    # Get or create a bot user with the given recipient id
+    try :
         current_bot_user = BotUser.objects.get(messenger_id=recipient_id)
-    except:
+    except ObjectDoesNotExist:
         current_bot_user = create_new_bot_user(recipient_id=recipient_id)
+        logger.info("That BotUser does not exist in the Database")
 
     if current_bot_user:
+
         profile_details = json.loads(current_bot_user.profile_details)
         try:
             name = profile_details['first_name']
@@ -1003,6 +1028,11 @@ def handle_get_started(recipient_id):
 
         messenger_bot.send_action(recipient_id=recipient_id, action="typing_on")
         messenger_bot.send_generic_message(recipient_id=recipient_id, elements=welcome_elements)
+
+
+
+
+
 
 
 def handle_text_message(recipient_id, text_message):
@@ -1087,6 +1117,7 @@ def send_menu(messenger_id):
 
     elements = [el1,el3, el4, el5, el2]
 
+    messenger_bot.send_action(recipient_id=messenger_id, action='typing')
     messenger_bot.send_generic_message(recipient_id=messenger_id, elements=elements)
 
 
@@ -1140,32 +1171,6 @@ def get_facebook_details(facebook_id):
     return profile_data
 
 
-def get_questions_data(current_bot_user):
-    json_data = json.loads(current_bot_user.json_store)
-    try :
-        language_code = json_data['language_code']
-    except KeyError:
-        language_code=None
-        logger.info("Language code set to None")
-
-    try:
-        difficulty = json_data['difficulty_level']
-    except KeyError:
-        difficulty=None
-        logger.info("difficulty set to None")
-
-    if language_code and difficulty:
-        questions = ProgrammingQuestion.objects.filter(language__code=language_code, difficulty_level=difficulty)
-        questions_ids = [question.id for question in questions]
-
-        if len(questions_ids)>10:
-            questions_ids = random.sample(questions_ids, 10)
-
-    else:
-        questions = []
-        questions_ids = []
-
-    return [questions, questions_ids, language_code, difficulty]
 
 def send_question(messenger_id, state):
     current_bot_user = BotUser.objects.get(messenger_id=messenger_id)

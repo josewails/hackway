@@ -1,9 +1,16 @@
-from .models import CodingQuestion,CodingResult, BotUser
-
+from .models import (
+    CodingQuestion,
+    CodingResult,
+    BotUser,
+    ProgrammingQuestion
+)
 import json, requests
 import os
 from binascii import hexlify
+import logging
+import random
 
+logger = logging.getLogger(__name__)
 numbers = ['0️⃣', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣']
 
 def validate_code(source, question_id, language_used, facebook_id):
@@ -355,6 +362,46 @@ def web_button(title, url):
     }
 
     return button
+
+
+def get_questions_data(messenger_id):
+    """
+
+    :param messenger_id: Facebook messenger id of user interacting with the bot
+    :return:
+    """
+
+    # Get the current bot user and load thier details
+    current_bot_user = BotUser.objects.get(messenger_id=messenger_id)
+    json_data = json.loads(current_bot_user.json_store)
+
+    # Get the language code they have already chosen
+    try :
+        language_code = json_data['language_code']
+    except KeyError:
+        language_code = None
+        logger.info("Language code set to None")
+
+    # Get the difficulty level they had already chosen
+    try:
+        difficulty = json_data['difficulty_level']
+    except KeyError:
+        difficulty = None
+        logger.info("difficulty set to None")
+
+    # Get a random question
+    if language_code and difficulty:
+        questions = ProgrammingQuestion.objects.filter(language__code=language_code, difficulty_level=difficulty)
+        questions_ids = [question.id for question in questions]
+
+        if len(questions_ids)>10:
+            questions_ids = random.sample(questions_ids, 10)
+
+    else:
+        questions = []
+        questions_ids = []
+
+    return [questions, questions_ids, language_code, difficulty]
     
 
 

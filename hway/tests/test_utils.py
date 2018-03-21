@@ -1,8 +1,22 @@
 from django.test import TestCase
-from hway.utils import get_individual_score, validate_ground_code
-from hway.models import CodingResult,BotUser, FacebookUser
+from hway.utils import (
+    get_individual_score,
+    validate_ground_code,
+    get_questions_data
+)
+from hway.models import (
+    CodingResult,
+    BotUser,
+    FacebookUser,
+)
+from hway.factories import(
+    FacebookUserFactory,
+    BotUserFactory,
+    ProgrammingQuestionFactory
+)
 import json
 
+josewails = '1528075240606741'
 class TestGetIndividualScore(TestCase):
 
     """"""
@@ -76,7 +90,19 @@ class TestValidateGroundCode(TestCase):
         self.output =  "3"
 
     def test_validate_ground_code(self):
+
         res = validate_ground_code(source=self.source, language_used=self.language_used, testcases=self.test_cases)
         self.assertIn('success', res)
         self.assertEqual(self.output, res['result'].strip())
+
+class TestGetQuestionData(TestCase):
+
+    def setUp(self):
+        BotUserFactory()
+        ProgrammingQuestionFactory()
+
+
+    def test_get_question_data(self):
+        res = get_questions_data(messenger_id=josewails)
+        self.assertIn('30', res)
 
