@@ -28,14 +28,13 @@ class FacebookUser(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(null=True)
     profile_picture_url = models.URLField(null=True, blank=True)
-    private_api_key = models.CharField(max_length=10000, null=True)
 
     def __str__(self):
         return self.name
 
 
 class BotUser(models.Model):
-    facebook_user = models.ForeignKey(FacebookUser, null=True)
+    facebook_user = models.ForeignKey(FacebookUser, null=True, on_delete=models.CASCADE)
     messenger_id = models.CharField(max_length=100, unique=True)
     profile_details = models.CharField(max_length=1000000, null=True)
     json_store = models.CharField(max_length=1000000, default='{}')
@@ -53,34 +52,13 @@ class BotUser(models.Model):
     generated_quiz_results = models.CharField(max_length=100000, null=True, default='{}')
     question_data = models.CharField(max_length=10000, null=True)
     solving_course_quiz = models.BooleanField(default=False)
-    course_data = models.CharField(max_length=1000000, default=json.dumps(c_data))
 
     def __str__(self):
         return self.messenger_id
 
 
-class Course(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    students = models.ManyToManyField(FacebookUser)
-
-    def __str__(self):
-        return self.name
-
-
-class CourseSegment(models.Model):
-    course = models.ForeignKey(Course, null=True, related_name='course_segments')
-    title = models.CharField(max_length=100)
-    intro = models.CharField(max_length=1000, null=True, blank=True)
-    body = RichTextUploadingField()
-
-    def __str__(self):
-        return self.title
-
-
 class CodingQuestion(models.Model):
-    course_segment = models.ForeignKey(CourseSegment, null=True)
-    author = models.ForeignKey(FacebookUser, null=True)
+    author = models.ForeignKey(FacebookUser, null=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     difficulty_level = models.CharField(null=True, max_length=20, choices=difficulty_level_choices)
     question = models.TextField()
@@ -119,7 +97,7 @@ class ProgrammingCategory(models.Model):
 
 
 class ProgrammingLanguage(models.Model):
-    category = models.ForeignKey(ProgrammingCategory, null=True)
+    category = models.ForeignKey(ProgrammingCategory, null=True, on_delete=models.CASCADE)
     code = models.CharField(max_length=3, null=True, unique=True)
     name = models.CharField(max_length=100, null=True, unique=True)
     logo = models.ImageField(upload_to='programming_languages_logos', null=True)
@@ -130,9 +108,8 @@ class ProgrammingLanguage(models.Model):
 
 
 class ProgrammingQuestion(models.Model):
-    course_segment = models.ForeignKey(CourseSegment, null=True, blank=True, related_name='programming_questions')
-    author = models.ForeignKey(FacebookUser, null=True)
-    language = models.ForeignKey(ProgrammingLanguage, related_name='questions')
+    author = models.ForeignKey(FacebookUser, null=True, on_delete=models.CASCADE)
+    language = models.ForeignKey(ProgrammingLanguage, related_name='questions', on_delete=models.CASCADE)
     question = models.TextField(null=True)
     difficulty_level = models.CharField(max_length=20, choices=difficulty_level_choices)
     explanation = models.TextField(null=True, blank=True)
@@ -144,7 +121,7 @@ class ProgrammingQuestion(models.Model):
 
 
 class ProgrammingQuestionAnswer(models.Model):
-    related_question = models.ForeignKey(ProgrammingQuestion, related_name='answers')
+    related_question = models.ForeignKey(ProgrammingQuestion, related_name='answers', on_delete=models.CASCADE)
     answer = models.CharField(max_length=20)
     state = models.CharField(max_length=10, choices=answer_state_choices)
 

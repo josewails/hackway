@@ -4,24 +4,34 @@ import random
 import datetime
 import json
 from faker import Factory
+from factory import fuzzy
+from faker import Faker
+
+from django.utils import timezone
+
 from .models import (
     FacebookUser,
     ProgrammingLanguage,
     ProgrammingQuestion,
     ProgrammingCategory,
-    Course,
-    CourseSegment,
-    BotUser
+    BotUser,
+    CodingQuestion,
+    ProgrammingQuestionAnswer,
+    CodingResult
 )
-from factory import fuzzy
+
 
 faker = Factory.create()
+fake = Faker()
+
 
 def get_random_number():
     return ''.join(random.choice(string.digits) for i in range(15))
 
+
 def get_random_url():
     return 'https://www.facebook.com/'+ faker.word()
+
 
 json_data = {"category_id": 1, "difficulty_level": "simple", "language_code": "30"}
 quiz_data = {"challenger_id": "1528075240606741", "questions_done_ids": [0,1,2],
@@ -31,15 +41,37 @@ generated_quiz_results = {"total_score": 0, "average_score": 0}
 
 profile_details = {"last_name": "Wagura",
                    "gender": "male",
-                   "profile_pic": "https://scontent.xx.fbcdn.net/v/t31.0-1/18620745_1018895178241712_4268700238720152377_o.jpg?oh=ebdceba23337b445a0a52d9d7e31a86c&oe=5A6C1C96",
+                   "profile_pic": "https://scontent.xx.fbcdn.net/v/t31.0-1/18620745_1018895178241712_4"
+                                  "268700238720152377_o.jpg?oh=ebdceba23337b445a0a52d9d7e31a86c&oe=5A6C1C96",
                    "id": "1528075240606741",
                    "locale": "en_US",
                    "first_name": "Joseph",
                    "timezone": 1
                  }
 
-course_data = {"data": []}
-class FacebookUserFactory(factory.DjangoModelFactory):
+coding_question_data = {
+            "title": "Division of Numbers",
+            "difficulty_level": "difficult",
+            "question": "You are given two numbers. Divide them and display the answer",
+            "sample_input": json.dumps(["6 2"]),
+            "sample_output": json.dumps(["3"]),
+            "solution_language": '30',
+            "solution": "nums=[int(a) for a in input().split()]\nans=nums[0]/nums[1]\nprint(int(ans))",
+            "input": json.dumps(["6 2", "22 2", "15 3"])
+}
+
+coding_result_data = {
+            'coder_facebook_id': "67",
+            'question_solved_id': 7,
+            'last_testcase_passed_index': 3,
+            'coder_source_code': "print(5)",
+            'error' : None,
+            'scores' : "[]",
+            'possible_total': 0
+}
+
+
+class FacebookUserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = FacebookUser
 
@@ -47,92 +79,105 @@ class FacebookUserFactory(factory.DjangoModelFactory):
     name = factory.Faker('name')
     email = factory.Faker('email')
     profile_picture_url = factory.LazyFunction(get_random_url)
-    private_api_key = factory.LazyFunction(get_random_number)
 
 
-class BotUserFactory(factory.DjangoModelFactory):
+class BotUserFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = BotUser
 
     facebook_user = factory.SubFactory(FacebookUserFactory)
-    messenger_id = '1528075240606741'
+    messenger_id = factory.LazyFunction(get_random_number)
     profile_details = json.dumps(profile_details)
     json_store = json.dumps(json_data)
     current_questions_ids = json.dumps([1])
-    questions_done = json.dumps([1])
-    questions_right = fuzzy.FuzzyInteger(50,100)
-    possible_total = fuzzy.FuzzyInteger(0,50)
+    questions_done = fuzzy.FuzzyInteger(0, 1000)
+    questions_right = fuzzy.FuzzyInteger(50, 100)
+    possible_total = fuzzy.FuzzyInteger(0, 50)
     quiz_total = fuzzy.FuzzyInteger(100)
-    scores = json.dumps([1,2,3])
-    quiz_challenged = factory.Faker('quiz_challenged')
+    scores = json.dumps([1, 2, 3])
+    quiz_challenged = fuzzy.FuzzyChoice([0, 1])
     quiz_data = json.dumps(quiz_data)
-    question_challenged = factory.Faker('question_challenged')
-    generated_quiz_challenged = factory.Faker('generated_quiz_challenged')
-    generating_quiz = factory.Faker('generating_quiz')
+    question_challenged = fuzzy.FuzzyChoice([0, 1])
+    generated_quiz_challenged = fuzzy.FuzzyChoice([0, 1])
+    generating_quiz = fuzzy.FuzzyChoice([0, 1])
     generated_quiz_results = json.dumps(generated_quiz_results)
     question_data = json.dumps(generated_quiz_results)
-    solving_course_quiz = factory.Faker('solving_course_quiz')
-    course_data = json.dumps(course_data)
+    solving_course_quiz = fuzzy.FuzzyChoice([0, 1])
 
 
-class ProgrammingCategoryFactory(factory.DjangoModelFactory):
+class ProgrammingCategoryFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = ProgrammingCategory
 
-    name = factory.Faker('name')
-    published = factory.LazyFunction(datetime.datetime.now)
-
-class CourseFactory(factory.DjangoModelFactory):
-
-    class Meta:
-        model = Course
-
-    name = factory.Faker('name')
-    description = factory.Faker('description')
-
-    @factory.post_generation
-    def students(self, create, extracted, **kwargs):
-        if not create:
-            return
-        if extracted:
-            for student in extracted:
-                self.students.add(student)
+    name = fuzzy.FuzzyChoice(['General', 'Web'])
+    published = fuzzy.FuzzyChoice([0, 1])
 
 
-class CourseSegmentFactory(factory.DjangoModelFactory):
-
-    class Meta:
-        model = CourseSegment
-
-    course = factory.SubFactory(CourseFactory)
-    title = factory.Faker('title')
-    intro = factory.Faker('intro')
-    body = factory.Faker('body')
-
-
-class ProgrammingLanguageFactory(factory.DjangoModelFactory):
+class ProgrammingLanguageFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = ProgrammingLanguage
 
     category = factory.SubFactory(ProgrammingCategoryFactory)
-    name ='python'
-    code = '30'
+    name = fuzzy.FuzzyChoice(['python', 'java', 'javascript'])
+    code = fuzzy.FuzzyChoice(['30', '40', '50'])
     logo = factory.django.ImageField()
-    published = factory.LazyFunction(datetime.datetime.now)
+    published = fuzzy.FuzzyChoice([0, 1])
 
 
-class ProgrammingQuestionFactory(factory.DjangoModelFactory):
+class ProgrammingQuestionFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = ProgrammingQuestion
 
-    course_segment = factory.SubFactory(CourseSegmentFactory)
     author = factory.SubFactory(FacebookUserFactory)
     language = factory.SubFactory(ProgrammingLanguageFactory)
-    question = factory.Faker('question')
-    difficulty_level = 'simple'
-    explanation = factory.Faker('explanation')
+    question = fake.sentence()
+    difficulty_level = fuzzy.FuzzyChoice(['simple', 'intermediate', 'difficult'])
+    explanation = fake.sentence()
     image = factory.django.ImageField()
+
+
+class ProgrammingQuestionAnswerFactory(factory.django.DjangoModelFactory):
+
+    class Meta:
+        model = ProgrammingQuestionAnswer
+
+    related_question = factory.SubFactory(ProgrammingQuestionFactory)
+    answer = fake.word()
+    state = fuzzy.FuzzyChoice(['1', '2'])
+
+
+class CodingQuestionFactory(factory.django.DjangoModelFactory):
+
+    class Meta:
+        model = CodingQuestion
+
+    author = factory.SubFactory(FacebookUserFactory)
+    title = fake.word()
+    difficulty_level = fuzzy.FuzzyChoice(['simple', 'intermediate', 'difficult'])
+    question = fake.sentence()
+    sample_input = coding_question_data['sample_input']
+    sample_output = coding_question_data['sample_output']
+    solution_language = coding_question_data['solution_language']
+    solution = coding_question_data['solution']
+    input = coding_question_data['input']
+
+
+class CodingResultFactory(factory.django.DjangoModelFactory):
+
+    class Meta:
+        model = CodingResult
+
+    coder_facebook_id = "123456"
+    question_solved_id = fuzzy.FuzzyInteger(0, 1000)
+    last_testcase_passed_index = fuzzy.FuzzyInteger(0, 1000)
+    coder_source_code = coding_result_data['coder_source_code']
+    error = coding_result_data['error']
+    scores = coding_result_data['scores']
+    possible_total = fuzzy.FuzzyInteger(0,1000)
+
+
+

@@ -1,0 +1,32 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+dj-database-url = "*"
+django-ckeditor = "*"
+django-cors-headers = "*"
+django-filter = "*"
+django-js-asset = "*"
+django-nested-admin = "*"
+django-nested-inline = "*"
+django-rest-framework = "*"
+django-storages = "*"
+faker = "*"
+pytz = "*"
+"psycopg2" = "*"
+whitenoise = "*"
+requests-toolbelt = "*"
+"urllib3" = "*"
+six = "*"
+gunicorn = "*"
+pillow = "*"
+boto = "*"
+factory-boy = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"

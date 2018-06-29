@@ -6,3 +6,4 @@ hackway.json
 db.sqlite3
 __pycache__
 dev.py
+.idea/
