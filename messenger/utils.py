@@ -2,6 +2,8 @@ import json
 import requests
 import random
 import urllib.parse
+
+from django.conf import settings
 from django.core import exceptions
 from hway.models import (
     CodingQuestion, CodingResult, BotUser,
@@ -13,9 +15,7 @@ from pymessenger.bot import Bot
 
 numbers = ['0️⃣', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣']
 
-page_access_token = 'EAAB9qLtZBAGoBAFTmZCuLBjPERiPDYea9gjwkULqKUZBAZCORbgzdu338QB1wcsZCPRQDWcRh' \
-                    'RHyUgqAe7O2FTMDcp27R8zgJsMJlJqq39pXksNXDFAv9ZA9i7kUPaQX3gY5XrggZCeQL7DQBjzhFlq' \
-                    'Fkvo7xsqz4uEV9w8b0ZCvoQZDZD'
+page_access_token = settings.PAGE_ACCESS_TOKEN
 
 messenger_bot = Bot(page_access_token)
 
@@ -334,17 +334,17 @@ def get_profile_data(messenger_id):
     profile_data = json.loads(current_bot_user.profile_details)
     try:
         first_name = profile_data['first_name']
-    except:
+    except KeyError:
         first_name = ''
 
     try:
         last_name = profile_data['last_name']
-    except:
+    except KeyError:
         last_name = ''
 
     try:
         profile_picture_url = profile_data['profile_pic']
-    except:
+    except KeyError:
         profile_picture_url = None
 
     res = {
@@ -454,14 +454,14 @@ def done_with_quiz(messenger_id, elements):
 
     s_button = share_with_template(elements=elements)
 
-    element = plain_element(
+    current_element = plain_element(
         title=title,
         subtitle=subtitle,
         image_url='https://www.mycreditmonitor.co.uk/img/seo/icon_arrowCircle.png',
         buttons=[s_button]
     )
 
-    menu_elements = [element]
+    menu_elements = [current_element]
     messenger_bot.send_action(action='typing_on', recipient_id=messenger_id)
     messenger_bot.send_generic_message(recipient_id=messenger_id, elements=menu_elements)
 

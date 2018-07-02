@@ -25,8 +25,10 @@ gunicorn = "*"
 pillow = "*"
 boto = "*"
 factory-boy = "*"
+"django-bootstrap3" = "*"
 
 [dev-packages]
+yamjam = "*"
 
 [requires]
 python_version = "3.6"

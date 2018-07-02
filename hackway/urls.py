@@ -24,7 +24,7 @@ from django.contrib import admin
 urlpatterns = [
     path('', include('hway.urls')),
     path('api/v1/', include('api.urls')),
-    path('messenger', include('messenger.urls')),
+    path('messenger/', include('messenger.urls')),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('nested_admin/', include('nested_admin.urls')),
