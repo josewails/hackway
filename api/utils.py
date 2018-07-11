@@ -1,6 +1,7 @@
 import json
 import requests
 from django.core import exceptions
+from django.conf import settings
 
 from messenger.utils import (
     get_score
@@ -42,7 +43,7 @@ def validate_code(source, question_id, language_used, facebook_id):
         possible_total = len(json.loads(test_cases)) * score
 
         solution_data = {
-            'api_key': 'hackerrank|394048-2076|cbdd81cef0663eb85cd43e24355f42b1efa2e2a8',
+            'api_key': settings.HACKERRANK_API_KEY,
             'source': solution,
             'lang': solution_language,
             'testcases': test_cases,
@@ -50,7 +51,7 @@ def validate_code(source, question_id, language_used, facebook_id):
         }
 
         user_data = {
-            'api_key': 'hackerrank|394048-2076|cbdd81cef0663eb85cd43e24355f42b1efa2e2a8',
+            'api_key': settings.HACKERRANK_API_KEY,
             'source': source,
             'lang': language_used,
             'testcases': test_cases,
@@ -93,6 +94,7 @@ def validate_code(source, question_id, language_used, facebook_id):
             return {
                 'compile_message': compile_message
             }
+
 
         # If the code compiled successfully,
         # I go through all the results from the api
@@ -263,7 +265,7 @@ def get_individual_score(facebook_id, messenger_id):
 
 def validate_ground_code(source, language_used, testcases):
     user_data = {
-        'api_key': 'hackerrank|394048-2076|cbdd81cef0663eb85cd43e24355f42b1efa2e2a8',
+        'api_key': settings.HACKERRANK_API_KEY,
         'source': source,
         'lang': language_used,
         'testcases': testcases,

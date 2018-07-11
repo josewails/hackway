@@ -7,8 +7,7 @@ from rest_framework.test import APIClient, APITestCase
 from hway import factories
 from hway.models import (
     FacebookUser,
-    CodingQuestion,
-    CodingResult
+    CodingQuestion
 )
 current_domain = Site.objects.get_current().domain
 
@@ -26,6 +25,8 @@ class TestFacebookUserCreateApiView(APITestCase):
         self.facebook_user1 = factories.FacebookUserFactory()
         self.facebook_user2 = factories.FacebookUserFactory()
         self.facebook_user3 = factories.FacebookUserFactory()
+        self.user = factories.UserFactory()
+        self.token_key = factories.TokenFactory(user=self.user).key
 
     def test_facebook_user_create_api_view(self):
 
@@ -36,18 +37,23 @@ class TestFacebookUserCreateApiView(APITestCase):
             'profile_picture_url': 'https://www.facebook.com/klsmfssnfosinfosd'
         }
         client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
         response = client.post('/api/v1/facebook_users/create', data=data, format='json')
+
         self.assertIn('success', response.json())
 
     def test_facebook_list_api_view(self):
 
         client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
+
         response = client.get('/api/v1/facebook_users')
         self.assertEqual(len(response.json()), 3)
 
     def test_facebook_user_update_api_view(self):
 
         client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
 
         data = {
             'email': 'j4576@gmail.com',
@@ -70,6 +76,7 @@ class TestFacebookUserCreateApiView(APITestCase):
     def test_facebook_user_retrieve(self):
 
         client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
         facebook_id = self.facebook_user1.facebook_id
 
         response = client.get('/api/v1/facebook_users/' + facebook_id)
@@ -85,6 +92,7 @@ class TestFacebookUserCreateApiView(APITestCase):
     def test_delete_facebook_user_api_view(self):
 
         client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
         facebook_id = self.facebook_user1.facebook_id
 
         # delete the facebook user with the the above facebook id
@@ -110,13 +118,17 @@ class TestCodingQuestionAPI(APITestCase):
     def setUp(self):
 
         self.facebook_user = factories.FacebookUserFactory()
+        self.user = factories.UserFactory()
+        self.token_key = factories.TokenFactory(user=self.user).key
         self.coding_questions = []
 
         for i in range(10):
             self.coding_questions.append(factories.CodingQuestionFactory(author=self.facebook_user))
 
     def test_coding_question_create(self):
+
         client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
 
         facebook_id = self.facebook_user.facebook_id
 
@@ -138,8 +150,9 @@ class TestCodingQuestionAPI(APITestCase):
         self.assertIn('success', response.json())
 
     def test_coding_question_list_api_view(self):
-        client = APIClient()
 
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
         response = client.get('/api/v1/coding_questions')
 
         # assert that the response return with a status code of 200
@@ -151,8 +164,9 @@ class TestCodingQuestionAPI(APITestCase):
         self.assertEqual(len(response.json()), 10)
 
     def test_coding_question_difficulty_filtered_list_api_view(self):
-        client = APIClient()
 
+        client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
         response = client.get('/api/v1/coding_questions/difficulty_level/simple')
         simple_count = CodingQuestion.objects.filter(difficulty_level='simple').count()
 
@@ -161,7 +175,9 @@ class TestCodingQuestionAPI(APITestCase):
         self.assertEqual(len(response.json()), simple_count)
 
     def test_coding_question_retrive_view(self):
+
         client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
 
         question_id = self.coding_questions[0].id
         question_difficulty = self.coding_questions[0].difficulty_level
@@ -180,7 +196,8 @@ class TestCodingQuestionAPI(APITestCase):
 class TestCodingResultAPI(APITestCase):
 
     def setUp(self):
-
+        self.user = factories.UserFactory()
+        self.token_key = factories.TokenFactory(user=self.user).key
         self.coding_results = []
 
         for i in range(5):
@@ -189,6 +206,7 @@ class TestCodingResultAPI(APITestCase):
     def test_facebook_user_coding_result_list(self):
 
         client = APIClient()
+        client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
         facebook_id = self.coding_results[0].coder_facebook_id
 
         response = client.get('/api/v1/coding_results/' + facebook_id)
@@ -205,6 +223,9 @@ class TestCodingResultAPI(APITestCase):
 class TestProgrammingLanguageAPI(APITestCase):
 
     def setUp(self):
+
+        self.user = factories.UserFactory()
+        self.token_key = factories.TokenFactory(user=self.user).key
         facebook_user = factories.FacebookUserFactory()
         programming_category = factories.ProgrammingCategoryFactory()
         programming_language = factories.ProgrammingLanguageFactory(category=programming_category)
@@ -217,7 +238,7 @@ class TestProgrammingLanguageAPI(APITestCase):
     def test_programming_question_list(self):
 
         client = APIClient()
-
+        client.credentials(HTTP_AUTHORIZATION='Token ' + self.token_key)
         response = client.get('/api/v1/programming_questions')
 
         # Assert that the above request returns with a status code of 200
