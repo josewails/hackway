@@ -1,8 +1,11 @@
 import factory
 import string
 import random
-import datetime
 import json
+
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
+
 from faker import Factory
 from factory import fuzzy
 from faker import Faker
@@ -69,7 +72,6 @@ coding_result_data = {
             'scores' : "[]",
             'possible_total': 0
 }
-
 
 class FacebookUserFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -177,7 +179,24 @@ class CodingResultFactory(factory.django.DjangoModelFactory):
     coder_source_code = coding_result_data['coder_source_code']
     error = coding_result_data['error']
     scores = coding_result_data['scores']
-    possible_total = fuzzy.FuzzyInteger(0,1000)
+    possible_total = fuzzy.FuzzyInteger(0, 1000)
 
 
+class UserFactory(factory.DjangoModelFactory):
 
+    class Meta:
+        model = User
+
+    username = fake.first_name_male()
+    email = fake.email()
+    password = fake.word()
+    is_superuser = True
+    is_staff = True
+
+
+class TokenFactory(factory.DjangoModelFactory):
+
+    class Meta:
+        model = Token
+
+    user = factory.SubFactory(UserFactory)
