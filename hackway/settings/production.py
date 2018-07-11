@@ -9,6 +9,8 @@ DATABASES = {}
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
+HACKERRANK_API_KEY = os.environ['HACKERRANK_API_KEY']
+
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['BUCKET_NAME']
