@@ -8,8 +8,6 @@ DATABASES = {
     'default': {}
 }
 
-
-
 DEBUG = int(os.environ.get('DEBUG').strip())
 
 db_from_env = dj_database_url.config(conn_max_age=500)
@@ -24,5 +22,5 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
-AWS_S3_HOST='s3.us-east-1.amazonaws.com'
+AWS_S3_HOST='s3.us-east-2.amazonaws.com'
 
