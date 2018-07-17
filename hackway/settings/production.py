@@ -8,20 +8,21 @@ DATABASES = {
     'default': {}
 }
 
+
+
+DEBUG = int(os.environ.get('DEBUG').strip())
+
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
-HACKERRANK_API_KEY = os.environ['HACKERRANK_API_KEY']
-
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_KEY']
-AWS_STORAGE_BUCKET_NAME = os.environ['BUCKET_NAME']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = 'yumm-pail'
 
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-STATIC_URL = 'http://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
+STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
-AWS_S3_HOST = 's3.us-east-1.amazonaws.com'
+AWS_S3_HOST='s3.us-east-2.amazonaws.com'
 
-AWS_QUERYSTRING_AUTH = False
