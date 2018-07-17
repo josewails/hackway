@@ -10,18 +10,23 @@ DATABASES = {
 
 DEBUG = int(os.environ.get('DEBUG').strip())
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
-
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-AWS_STORAGE_BUCKET_NAME = os.environ['BUCKET_NAME']
+AWS_STORAGE_BUCKET_NAME = 'defoot'
 
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
+STATIC_URL = 'http://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 AWS_S3_HOST='s3.us-east-2.amazonaws.com'
 
-AWS_QUERYSTRING_AUTH = False
+AWS_QUERYSTRING_AUTH=True
+
+CORS_ORIGIN_WHITELIST = (
+    'google.com',
+    'https://defoot.herokuapp.com'
+)
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
