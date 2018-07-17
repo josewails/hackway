@@ -24,5 +24,5 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 STATIC_URL = 'https://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
-AWS_S3_HOST='s3.us-east-2.amazonaws.com'
+AWS_S3_HOST='s3.us-east-1.amazonaws.com'
 
